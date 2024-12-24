@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  postgres-trackingcoin:
+    image: postgres:latest
+    container_name: postgres-trackingcoin
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: 
+      POSTGRES_DB: trackingcoin
+    ports:
+      - "5433:5432"
+    networks:
+      - my_network
+    volumes:
+      - postgres-trackingcoin-data:/var/lib/postgresql/data
+
+networks:
+  my_network:
+
+volumes:
+  postgres-trackingcoin-data:

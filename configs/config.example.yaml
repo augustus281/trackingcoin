@@ -1,0 +1,32 @@
+log:
+  log_level: debug
+  file_log_name: "./storages/logs/dev.001.log"
+  max_size: 500
+  max_backups: 3
+  max_age: 28
+  compress: true
+
+
+redis:
+  host: localhost #redis_container
+  port: 6380
+  password: ""
+  database: 0
+
+
+server:
+  port: 5000
+  mode: "dev"
+
+
+db:
+  host: 
+  port: 
+  username: 
+  password: 
+  dbname: 
+  sslmode: 
+  timezone: 
+  maxIdleConns: 
+  maxOpenConns: 
+  connMaxLifetime: 
