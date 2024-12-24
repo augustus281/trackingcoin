@@ -10,6 +10,7 @@ func Run() {
 	LoadConfig()
 	InitLogger()
 	InitDB()
+	InitRedis()
 	r := InitRouter()
 	serverAddr := fmt.Sprintf(":%v", global.Config.Server.Port)
 	if global.Config.Server.Mode != "release" {
