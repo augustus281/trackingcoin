@@ -5,6 +5,7 @@ type Config struct {
 	Logger     LoggerSetting     `mapstructure:"logger"`
 	Redis      RedisSetting      `mapstructure:"redis"`
 	Server     ServerSetting     `mapstructure:"server"`
+	CoinMarket CoinMarketSetting `mapstructure:"coinmarket"`
 }
 
 type ServerSetting struct {
@@ -39,4 +40,10 @@ type LoggerSetting struct {
 	Max_age       int    `mapstructure:"max_age"`
 	Max_size      int    `mapstructure:"max_size"`
 	Compress      bool   `mapstructure:"compress"`
+}
+
+type CoinMarketSetting struct {
+	URLApi      string `mapstructure:"url_api"`
+	Host        string `mapstructure:"host"`
+	CurrencyAPI string `mapstructure:"currency_api"`
 }
