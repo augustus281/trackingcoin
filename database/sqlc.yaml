@@ -1,0 +1,9 @@
+version: "2"
+packages:
+  - name: "trackingcoin"
+    path: "./database"
+    engine: "postgresql"
+    schema: "./database/schema"
+    queries: "./database/queries"
+    migrations:
+      dir: "./database/migration"  # Path to your migrations directory
