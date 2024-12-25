@@ -5,3 +5,5 @@ vendor
 .idea
 
 docker-compose.yml
+
+.vscode

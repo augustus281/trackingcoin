@@ -1,0 +1,13 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "C/C++ Runner: Debug Session",
+      "type": "lldb",
+      "request": "launch",
+      "args": [],
+      "cwd": "/Users/vn03-114/go-workspace/src/gitlab.ugaming.io/learning/cointracking/internal",
+      "program": "/Users/vn03-114/go-workspace/src/gitlab.ugaming.io/learning/cointracking/internal/build/Debug/outDebug"
+    }
+  ]
+}

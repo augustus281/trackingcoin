@@ -11,10 +11,8 @@ func Run() {
 	InitLogger()
 	InitDB()
 	InitRedis()
+	InitKafka()
 	r := InitRouter()
 	serverAddr := fmt.Sprintf(":%v", global.Config.Server.Port)
-	if global.Config.Server.Mode != "release" {
-		fmt.Println(serverAddr)
-	}
 	r.Run(serverAddr)
 }

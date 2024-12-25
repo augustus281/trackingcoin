@@ -30,3 +30,9 @@ db:
   maxIdleConns: 
   maxOpenConns: 
   connMaxLifetime: 
+
+coinmarket:
+  url_api: 
+  host: 
+  currency_api: 
+  api_key: 

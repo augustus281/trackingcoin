@@ -46,4 +46,5 @@ type CoinMarketSetting struct {
 	URLApi      string `mapstructure:"url_api"`
 	Host        string `mapstructure:"host"`
 	CurrencyAPI string `mapstructure:"currency_api"`
+	APIKey      string `mapstructure:"api_key"`
 }
