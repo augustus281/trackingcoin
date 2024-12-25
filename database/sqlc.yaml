@@ -1,9 +1,9 @@
 version: "2"
-packages:
-  - name: "trackingcoin"
-    path: "./database"
+sql:
+  - schema: "./migration"
+    queries: "./queries"
     engine: "postgresql"
-    schema: "./database/schema"
-    queries: "./database/queries"
-    migrations:
-      dir: "./database/migration"  # Path to your migrations directory
+    gen:
+      go:
+        package: "trackingcoin"  
+        out: "./generator"     
