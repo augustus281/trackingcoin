@@ -7,16 +7,28 @@
 package wire
 
 import (
-	"github.com/augustus281/trackingcoin/internal/handler/auth"
-	"github.com/augustus281/trackingcoin/internal/repository/user"
-	"github.com/augustus281/trackingcoin/internal/service/auth"
+	handler2 "github.com/augustus281/trackingcoin/internal/handler/auth"
+	"github.com/augustus281/trackingcoin/internal/handler/coinmarketcap"
+	"github.com/augustus281/trackingcoin/internal/repository/coinmarketcap"
+	repository2 "github.com/augustus281/trackingcoin/internal/repository/user"
+	service2 "github.com/augustus281/trackingcoin/internal/service/auth"
+	"github.com/augustus281/trackingcoin/internal/service/coinmarketcap"
 )
+
+// Injectors from cmc_wire.go:
+
+func InitCMCRouterHandler() (*handler.CMCHandler, error) {
+	icmcRepository := repository.NewCMCRepo()
+	icmcService := service.NewCMCService(icmcRepository)
+	cmcHandler := handler.NewCMCHandler(icmcService)
+	return cmcHandler, nil
+}
 
 // Injectors from user_wire.go:
 
-func InitAuthRouterHandler() (*auth.AuthHandler, error) {
-	iUserRepository := repository.NewUserRepo()
-	iAuthService := service.NewAuthService(iUserRepository)
-	authHandler := auth.NewAuthHandler(iAuthService)
+func InitAuthRouterHandler() (*handler2.AuthHandler, error) {
+	iUserRepository := repository2.NewUserRepo()
+	iAuthService := service2.NewAuthService(iUserRepository)
+	authHandler := handler2.NewAuthHandler(iAuthService)
 	return authHandler, nil
 }

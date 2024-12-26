@@ -19,9 +19,13 @@ func InitRouter() *gin.Engine {
 	}
 
 	authRouter := routers.RouterGroupApp.Auth
+	cmcRouter := routers.RouterGroupApp.CMC
 	MainGroup := r.Group("/api/v1")
 	{
 		authRouter.InitAuthRouter(MainGroup)
+	}
+	{
+		cmcRouter.InitCMCRouter(MainGroup)
 	}
 	return r
 }
