@@ -6,10 +6,11 @@ import (
 
 	db "github.com/augustus281/trackingcoin/database/sqlc"
 	"github.com/augustus281/trackingcoin/global"
+	"github.com/augustus281/trackingcoin/internal/util"
 )
 
 type IUserRepository interface {
-	Create(ctx *gin.Context, email, hashedPassword string) (db.User, error)
+	Create(ctx *gin.Context, email, password string) (db.User, error)
 	GetByEmail(ctx *gin.Context, email string) (db.User, error)
 }
 
@@ -31,6 +32,17 @@ func (r *userRepo) GetByEmail(ctx *gin.Context, email string) (db.User, error) {
 	return user, nil
 }
 
-func (r *userRepo) Create(ctx *gin.Context, email, hashedPassword string) (db.User, error) {
-	return db.User{}, nil
+func (r *userRepo) Create(ctx *gin.Context, email, password string) (db.User, error) {
+	hashedPassword, err := util.HashPassword(password)
+	if err != nil {
+		return db.User{}, err
+	}
+	user, err := global.Db.CreateUser(ctx, db.CreateUserParams{
+		Email:          email,
+		HashedPassword: hashedPassword,
+	})
+	if err != nil {
+		return db.User{}, err
+	}
+	return user, nil
 }

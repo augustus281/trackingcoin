@@ -10,4 +10,6 @@ sqlc:
 	sqlc generate --file=database/sqlc.yaml
 compose:
 	docker compose up -d
-.PHONY: run migrateup migratedown sqlc compose
+wire:
+	cd internal/wire && wire
+.PHONY: run migrateup migratedown sqlc compose wire

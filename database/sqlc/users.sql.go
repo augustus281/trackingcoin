@@ -14,7 +14,7 @@ INSERT INTO "users" (
     email, hashed_password, created_at, updated_at
 ) VALUES (
     $1, $2, now(), now()
-) RETURNING id, email, fullname, hashed_password, created_at, updated_at
+) RETURNING id, email, hashed_password, created_at, updated_at
 `
 
 type CreateUserParams struct {
@@ -28,7 +28,6 @@ func (q *Queries) CreateUser(ctx context.Context, arg CreateUserParams) (User, e
 	err := row.Scan(
 		&i.ID,
 		&i.Email,
-		&i.Fullname,
 		&i.HashedPassword,
 		&i.CreatedAt,
 		&i.UpdatedAt,
@@ -37,7 +36,7 @@ func (q *Queries) CreateUser(ctx context.Context, arg CreateUserParams) (User, e
 }
 
 const getUser = `-- name: GetUser :one
-SELECT id, email, fullname, hashed_password, created_at, updated_at FROM "users"
+SELECT id, email, hashed_password, created_at, updated_at FROM "users"
 WHERE id = $1 LIMIT 1
 `
 
@@ -47,7 +46,6 @@ func (q *Queries) GetUser(ctx context.Context, id int32) (User, error) {
 	err := row.Scan(
 		&i.ID,
 		&i.Email,
-		&i.Fullname,
 		&i.HashedPassword,
 		&i.CreatedAt,
 		&i.UpdatedAt,
@@ -56,7 +54,7 @@ func (q *Queries) GetUser(ctx context.Context, id int32) (User, error) {
 }
 
 const getUserByEmail = `-- name: GetUserByEmail :one
-SELECT id, email, fullname, hashed_password, created_at, updated_at FROM "users"
+SELECT id, email, hashed_password, created_at, updated_at FROM "users"
 WHERE email = $1 LIMIT 1
 `
 
@@ -66,7 +64,6 @@ func (q *Queries) GetUserByEmail(ctx context.Context, email string) (User, error
 	err := row.Scan(
 		&i.ID,
 		&i.Email,
-		&i.Fullname,
 		&i.HashedPassword,
 		&i.CreatedAt,
 		&i.UpdatedAt,
@@ -75,7 +72,7 @@ func (q *Queries) GetUserByEmail(ctx context.Context, email string) (User, error
 }
 
 const listUsers = `-- name: ListUsers :many
-SELECT id, email, fullname, hashed_password, created_at, updated_at FROM "users"
+SELECT id, email, hashed_password, created_at, updated_at FROM "users"
 ORDER BY id
 LIMIT $1
 OFFSET $2
@@ -98,7 +95,6 @@ func (q *Queries) ListUsers(ctx context.Context, arg ListUsersParams) ([]User, e
 		if err := rows.Scan(
 			&i.ID,
 			&i.Email,
-			&i.Fullname,
 			&i.HashedPassword,
 			&i.CreatedAt,
 			&i.UpdatedAt,

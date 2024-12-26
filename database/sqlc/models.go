@@ -86,7 +86,6 @@ type Notification struct {
 type User struct {
 	ID             int32
 	Email          string
-	Fullname       string
 	HashedPassword string
 	CreatedAt      sql.NullTime
 	UpdatedAt      sql.NullTime

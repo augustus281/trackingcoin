@@ -5,6 +5,7 @@ type Config struct {
 	Logger     LoggerSetting     `mapstructure:"logger"`
 	Redis      RedisSetting      `mapstructure:"redis"`
 	Server     ServerSetting     `mapstructure:"server"`
+	Jwt        JwtSetting        `mapstructure:"token"`
 	CoinMarket CoinMarketSetting `mapstructure:"coinmarket"`
 }
 
@@ -47,4 +48,11 @@ type CoinMarketSetting struct {
 	Host        string `mapstructure:"host"`
 	CurrencyAPI string `mapstructure:"currency_api"`
 	APIKey      string `mapstructure:"api_key"`
+}
+
+type JwtSetting struct {
+	AccessToken       string `mapstructure:"access_token"`
+	RefreshToken      string `mapstructure:"refresh_token"`
+	Expiration        int    `mapstructure:"expiration"`
+	RefreshExpiration int    `mapstructure:"refresh_expiration"`
 }

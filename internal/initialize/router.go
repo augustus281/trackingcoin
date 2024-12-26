@@ -4,6 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 
 	"github.com/augustus281/trackingcoin/global"
+	"github.com/augustus281/trackingcoin/internal/routers"
 )
 
 func InitRouter() *gin.Engine {
@@ -16,6 +17,11 @@ func InitRouter() *gin.Engine {
 		gin.SetMode(gin.ReleaseMode)
 		r = gin.New()
 	}
-	// MainGroup := r.Group("/api/v1")
+
+	authRouter := routers.RouterGroupApp.Auth
+	MainGroup := r.Group("/api/v1")
+	{
+		authRouter.InitAuthRouter(MainGroup)
+	}
 	return r
 }
