@@ -1,9 +1,10 @@
 package util
 
 import (
+	"strconv"
 	"time"
 
-	"github.com/golang-jwt/jwt/v5"
+	"github.com/golang-jwt/jwt/v4"
 
 	"github.com/augustus281/trackingcoin/global"
 )
@@ -11,7 +12,7 @@ import (
 func GenerateAccessToken(userID int) (string, error) {
 	claims := jwt.MapClaims{}
 	claims["exp"] = time.Now().Add(time.Duration(global.Config.Jwt.Expiration)).Unix()
-	claims["id"] = userID
+	claims["id"] = strconv.Itoa(userID)
 
 	accessToken := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 	return accessToken.SignedString([]byte(global.Config.Jwt.AccessToken))
@@ -20,7 +21,7 @@ func GenerateAccessToken(userID int) (string, error) {
 func GenerateRefreshToken(userID int) (string, error) {
 	claims := jwt.MapClaims{}
 	claims["exp"] = time.Now().Add(time.Duration(global.Config.Jwt.RefreshExpiration)).Unix()
-	claims["id"] = userID
+	claims["id"] = strconv.Itoa(userID)
 
 	refreshToken := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 	return refreshToken.SignedString([]byte(global.Config.Jwt.RefreshToken))

@@ -1,4 +1,4 @@
-package service
+package coinmarketcap
 
 import (
 	"github.com/gin-gonic/gin"

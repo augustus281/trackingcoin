@@ -7,28 +7,40 @@
 package wire
 
 import (
-	handler2 "github.com/augustus281/trackingcoin/internal/handler/auth"
-	"github.com/augustus281/trackingcoin/internal/handler/coinmarketcap"
+	"github.com/augustus281/trackingcoin/internal/handler/asset"
+	handler3 "github.com/augustus281/trackingcoin/internal/handler/auth"
+	handler2 "github.com/augustus281/trackingcoin/internal/handler/coinmarketcap"
+	"github.com/augustus281/trackingcoin/internal/repository/asset"
 	"github.com/augustus281/trackingcoin/internal/repository/coinmarketcap"
-	repository2 "github.com/augustus281/trackingcoin/internal/repository/user"
-	service2 "github.com/augustus281/trackingcoin/internal/service/auth"
-	"github.com/augustus281/trackingcoin/internal/service/coinmarketcap"
+	"github.com/augustus281/trackingcoin/internal/repository/user"
+	asset2 "github.com/augustus281/trackingcoin/internal/service/asset"
+	"github.com/augustus281/trackingcoin/internal/service/auth"
+	coinmarketcap2 "github.com/augustus281/trackingcoin/internal/service/coinmarketcap"
 )
+
+// Injectors from asset_wire.go:
+
+func InitAssetRouterHandler() (*handler.AssetHandler, error) {
+	iAssetRepository := asset.NewAssetRepo()
+	iAssetService := asset2.NewAssetService(iAssetRepository)
+	assetHandler := handler.NewAssetHandler(iAssetService)
+	return assetHandler, nil
+}
 
 // Injectors from cmc_wire.go:
 
-func InitCMCRouterHandler() (*handler.CMCHandler, error) {
-	icmcRepository := repository.NewCMCRepo()
-	icmcService := service.NewCMCService(icmcRepository)
-	cmcHandler := handler.NewCMCHandler(icmcService)
+func InitCMCRouterHandler() (*handler2.CMCHandler, error) {
+	icmcRepository := coinmarketcap.NewCMCRepo()
+	icmcService := coinmarketcap2.NewCMCService(icmcRepository)
+	cmcHandler := handler2.NewCMCHandler(icmcService)
 	return cmcHandler, nil
 }
 
 // Injectors from user_wire.go:
 
-func InitAuthRouterHandler() (*handler2.AuthHandler, error) {
-	iUserRepository := repository2.NewUserRepo()
-	iAuthService := service2.NewAuthService(iUserRepository)
-	authHandler := handler2.NewAuthHandler(iAuthService)
+func InitAuthRouterHandler() (*handler3.AuthHandler, error) {
+	iUserRepository := user.NewUserRepo()
+	iAuthService := auth.NewAuthService(iUserRepository)
+	authHandler := handler3.NewAuthHandler(iAuthService)
 	return authHandler, nil
 }

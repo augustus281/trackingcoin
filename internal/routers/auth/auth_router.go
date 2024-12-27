@@ -6,6 +6,10 @@ import (
 	"github.com/augustus281/trackingcoin/internal/wire"
 )
 
+type AuthRouterGroup struct {
+	AuthRouter
+}
+
 type AuthRouter struct{}
 
 func (r *AuthRouter) InitAuthRouter(route *gin.RouterGroup) {
