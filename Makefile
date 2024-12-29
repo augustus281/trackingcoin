@@ -1,5 +1,5 @@
 run:
-	go run cmd/main.go 
+	go run cmd/main.go
 migrateup:
 	migrate -path database/migration -database "postgresql://root:mysecurepassword@localhost:5433/trackingcoin?sslmode=disable" -verbose up
 migratedown:
@@ -12,4 +12,6 @@ compose:
 	docker compose up -d
 wire:
 	cd internal/wire && wire
-.PHONY: run migrateup migratedown sqlc compose wire
+envoy:
+	envoy -c api-gateway/api-gateway.yaml
+.PHONY: run migrateup migratedown sqlc compose wire envoy
