@@ -7,3 +7,5 @@ vendor
 docker-compose.yml
 
 .vscode
+
+logs
