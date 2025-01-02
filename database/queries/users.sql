@@ -18,3 +18,6 @@ SELECT * FROM "users"
 ORDER BY id
 LIMIT $1
 OFFSET $2;
+
+-- name: GetAllEmails :many
+SELECT email FROM "users";

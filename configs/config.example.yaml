@@ -36,3 +36,7 @@ coinmarket:
   host: 
   currency_api: 
   api_key: 
+
+smtp:
+  username: 
+  password: 

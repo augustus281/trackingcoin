@@ -7,6 +7,7 @@ type Config struct {
 	Server     ServerSetting     `mapstructure:"server"`
 	Jwt        JwtSetting        `mapstructure:"token"`
 	CoinMarket CoinMarketSetting `mapstructure:"coinmarket"`
+	SMTP       SMTPSetting       `mapstructure:"smtp"`
 }
 
 type ServerSetting struct {
@@ -55,4 +56,9 @@ type JwtSetting struct {
 	RefreshToken      string `mapstructure:"refresh_token"`
 	Expiration        int    `mapstructure:"expiration"`
 	RefreshExpiration int    `mapstructure:"refresh_expiration"`
+}
+
+type SMTPSetting struct {
+	Username string `mapstructure:"username"`
+	Password string `mapstructure:"password"`
 }
