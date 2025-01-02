@@ -1,5 +1,5 @@
 package topics
 
 const (
-	NotificationMessage = "notification-message"
+	NotificationTopic = "notification-topic"
 )
