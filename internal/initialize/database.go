@@ -15,7 +15,7 @@ func InitDB() {
 	username := "root"
 	password := global.Config.PostgreSql.Password
 	host := "localhost"
-	port := 5433
+	port := 5432
 	dbName := global.Config.PostgreSql.DBName
 	sslMode := "disable"
 
