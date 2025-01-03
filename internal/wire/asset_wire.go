@@ -5,16 +5,16 @@ package wire
 import (
 	"github.com/google/wire"
 
-	assetHandler "github.com/augustus281/trackingcoin/internal/handler/asset"
+	"github.com/augustus281/trackingcoin/internal/handler"
 	assetRepo "github.com/augustus281/trackingcoin/internal/repository/asset"
 	assetService "github.com/augustus281/trackingcoin/internal/service/asset"
 )
 
-func InitAssetRouterHandler() (*assetHandler.AssetHandler, error) {
+func InitAssetRouterHandler() (*handler.AssetHandler, error) {
 	wire.Build(
 		assetRepo.NewAssetRepo,
 		assetService.NewAssetService,
-		assetHandler.NewAssetHandler,
+		handler.NewAssetHandler,
 	)
-	return new(assetHandler.AssetHandler), nil
+	return new(handler.AssetHandler), nil
 }

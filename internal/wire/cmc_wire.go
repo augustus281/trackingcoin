@@ -5,16 +5,16 @@ package wire
 import (
 	"github.com/google/wire"
 
-	cmc "github.com/augustus281/trackingcoin/internal/handler/coinmarketcap"
+	"github.com/augustus281/trackingcoin/internal/handler"
 	cmcRepo "github.com/augustus281/trackingcoin/internal/repository/coinmarketcap"
 	cmcService "github.com/augustus281/trackingcoin/internal/service/coinmarketcap"
 )
 
-func InitCMCRouterHandler() (*cmc.CMCHandler, error) {
+func InitCMCRouterHandler() (*handler.CMCHandler, error) {
 	wire.Build(
 		cmcRepo.NewCMCRepo,
 		cmcService.NewCMCService,
-		cmc.NewCMCHandler,
+		handler.NewCMCHandler,
 	)
-	return new(cmc.CMCHandler), nil
+	return new(handler.CMCHandler), nil
 }
