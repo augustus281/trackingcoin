@@ -14,7 +14,7 @@ func InitKafka() {
 	global.Logger.Info("init producer successfully")
 	defer producer.Close()
 
-	consumer := consumer.NewConsumer(kafkaConfig.Brokers, kafkaConfig.GroupID, kafkaConfig.Topics)
+	consumer := consumer.NewConsumer("localhost:9092", kafkaConfig.GroupID, kafkaConfig.Topics[0])
 	global.Logger.Info("init consumer successfully")
 	defer consumer.Close()
 }

@@ -1,5 +1,6 @@
 package topics
 
 const (
-	NotificationTopic = "notification-topic"
+	Trending          = "trending"
+	EmailNotification = "email-notification"
 )

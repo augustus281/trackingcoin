@@ -6,3 +6,9 @@ type Message struct {
 	Message string `json:"message"`
 	Email   string `json:"email"`
 }
+
+type Notification struct {
+	From    string   `json:"from"`
+	To      []string `json:"to"`
+	Message string   `json:"message"`
+}
