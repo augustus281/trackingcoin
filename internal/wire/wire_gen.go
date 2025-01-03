@@ -7,15 +7,14 @@
 package wire
 
 import (
-	"github.com/augustus281/trackingcoin/internal/handler/asset"
-	handler3 "github.com/augustus281/trackingcoin/internal/handler/auth"
-	handler2 "github.com/augustus281/trackingcoin/internal/handler/coinmarketcap"
+	"github.com/augustus281/trackingcoin/internal/handler"
 	"github.com/augustus281/trackingcoin/internal/repository/asset"
 	"github.com/augustus281/trackingcoin/internal/repository/coinmarketcap"
 	"github.com/augustus281/trackingcoin/internal/repository/user"
 	asset2 "github.com/augustus281/trackingcoin/internal/service/asset"
 	"github.com/augustus281/trackingcoin/internal/service/auth"
 	coinmarketcap2 "github.com/augustus281/trackingcoin/internal/service/coinmarketcap"
+	"github.com/augustus281/trackingcoin/internal/service/notification"
 )
 
 // Injectors from asset_wire.go:
@@ -29,18 +28,26 @@ func InitAssetRouterHandler() (*handler.AssetHandler, error) {
 
 // Injectors from cmc_wire.go:
 
-func InitCMCRouterHandler() (*handler2.CMCHandler, error) {
+func InitCMCRouterHandler() (*handler.CMCHandler, error) {
 	icmcRepository := coinmarketcap.NewCMCRepo()
 	icmcService := coinmarketcap2.NewCMCService(icmcRepository)
-	cmcHandler := handler2.NewCMCHandler(icmcService)
+	cmcHandler := handler.NewCMCHandler(icmcService)
 	return cmcHandler, nil
+}
+
+// Injectors from notify_wire.go:
+
+func InitNotifyRouterHandler() (*handler.NotifyHandler, error) {
+	iNotifyService := notification.NewNotifyService()
+	notifyHandler := handler.NewNotifyHandler(iNotifyService)
+	return notifyHandler, nil
 }
 
 // Injectors from user_wire.go:
 
-func InitAuthRouterHandler() (*handler3.AuthHandler, error) {
+func InitAuthRouterHandler() (*handler.AuthHandler, error) {
 	iUserRepository := user.NewUserRepo()
 	iAuthService := auth.NewAuthService(iUserRepository)
-	authHandler := handler3.NewAuthHandler(iAuthService)
+	authHandler := handler.NewAuthHandler(iAuthService)
 	return authHandler, nil
 }

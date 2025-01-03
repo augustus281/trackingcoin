@@ -21,6 +21,7 @@ func InitRouter() *gin.Engine {
 	authRouter := routers.RouterGroupApp.Auth
 	cmcRouter := routers.RouterGroupApp.CMC
 	assetRouter := routers.RouterGroupApp.Asset
+	notifyRouter := routers.RouterGroupApp.Notification
 	MainGroup := r.Group("/api/v1")
 	{
 		authRouter.InitAuthRouter(MainGroup)
@@ -30,6 +31,9 @@ func InitRouter() *gin.Engine {
 	}
 	{
 		assetRouter.InitAssetRouter(MainGroup)
+	}
+	{
+		notifyRouter.InitNotifyRouter(MainGroup)
 	}
 	return r
 }

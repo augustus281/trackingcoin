@@ -8,6 +8,7 @@ type Config struct {
 	Jwt        JwtSetting        `mapstructure:"token"`
 	CoinMarket CoinMarketSetting `mapstructure:"coinmarket"`
 	SMTP       SMTPSetting       `mapstructure:"smtp"`
+	Kafka      KafkaSetting      `mapstructure:"kafka"`
 }
 
 type ServerSetting struct {
@@ -61,4 +62,53 @@ type JwtSetting struct {
 type SMTPSetting struct {
 	Username string `mapstructure:"username"`
 	Password string `mapstructure:"password"`
+	Host     string `mapstructure:"host"`
+	Port     int    `mapstructure:"port"`
+}
+
+type KafkaSetting struct {
+	Brokers      []string          `mapstructure:"brokers"`
+	GroupID      string            `mapstructure:"group_id"`
+	Topics       KafkaTopics       `mapstructure:"topics"`
+	Producer     KafkaProducer     `mapstructure:"producer"`
+	Consumer     KafkaConsumer     `mapstructure:"consumer"`
+	Notification KafkaNotification `mapstructure:"notification"`
+}
+
+type KafkaTopics struct {
+	Notification KafkaTopic `mapstructure:"notification"`
+}
+
+type KafkaTopic struct {
+	Name              string `mapstructure:"name"`
+	Partitions        int    `mapstructure:"partitions"`
+	ReplicationFactor int    `mapstructure:"replicationFactor"`
+}
+
+type KafkaProducer struct {
+	Retries         int    `mapstructure:"retries"`
+	Acks            string `mapstructure:"acks"`
+	BatchSize       int    `mapstructure:"batchSize"`
+	LingerMs        int    `mapstructure:"lingerMs"`
+	BufferMemory    int    `mapstructure:"bufferMemory"`
+	KeySerializer   string `mapstructure:"keySerializer"`
+	ValueSerializer string `mapstructure:"valueSerializer"`
+}
+
+type KafkaConsumer struct {
+	GroupID           string `mapstructure:"groupId"`
+	EnableAutoCommit  bool   `mapstructure:"enableAutoCommit"`
+	AutoOffsetReset   string `mapstructure:"autoOffsetReset"`
+	MaxPollRecords    int    `mapstructure:"maxPollRecords"`
+	KeyDeserializer   string `mapstructure:"keyDeserializer"`
+	ValueDeserializer string `mapstructure:"valueDeserializer"`
+}
+
+type KafkaNotification struct {
+	Retry KafkaRetry `mapstructure:"retry"`
+}
+
+type KafkaRetry struct {
+	MaxRetries int `mapstructure:"maxRetries"`
+	DelayMs    int `mapstructure:"delayMs"`
 }

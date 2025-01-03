@@ -1,4 +1,4 @@
-package asset
+package routers
 
 import (
 	"github.com/gin-gonic/gin"

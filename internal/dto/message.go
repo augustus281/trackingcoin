@@ -8,7 +8,8 @@ type Message struct {
 }
 
 type Notification struct {
-	From    string   `json:"from"`
-	To      []string `json:"to"`
-	Message string   `json:"message"`
+	From    string `json:"from"`
+	To      string `json:"to"`
+	Subject string `json:"subject"`
+	Message string `json:"message"`
 }

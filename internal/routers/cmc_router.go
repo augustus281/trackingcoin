@@ -1,4 +1,4 @@
-package coinmarketcap
+package routers
 
 import (
 	"github.com/gin-gonic/gin"
