@@ -1,5 +1,3 @@
-CREATE TYPE notification_type AS ENUM ('email', 'discord', 'telegram');
-
 CREATE TABLE users (
   id SERIAL PRIMARY KEY,
   email VARCHAR UNIQUE NOT NULL,
@@ -29,13 +27,51 @@ CREATE TABLE assets (
   updated_at TIMESTAMP DEFAULT NOW()
 );
 
+CREATE TABLE notification_objects (
+  id SERIAL PRIMARY KEY,
+  entity_type_id BIGINT NOT NULL,
+  entity_id BIGINT NOT NULL,
+  status SMALLINT NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT NOW()
+);
+
 CREATE TABLE notifications (
   id SERIAL PRIMARY KEY,
-  user_id INT REFERENCES users(id) ON DELETE CASCADE,
-  noti_type notification_type NOT NULL DEFAULT 'email', 
-  message TEXT,
-  is_read BOOLEAN DEFAULT FALSE,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  notification_object_id BIGINT NOT NULL,
+  notifier_id BIGINT NOT NULL,
+  status SMALLINT NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT NOW(),
+  CONSTRAINT fk_notification_object
+    FOREIGN KEY (notification_object_id)
+    REFERENCES notification_objects (id)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT fk_notification_notifier_id
+    FOREIGN KEY (notifier_id)
+    REFERENCES "users" (id)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION
+);
+
+CREATE TABLE notification_changes (
+  id SERIAL PRIMARY KEY,
+  notification_object_id BIGINT NOT NULL,
+  actor_id BIGINT NOT NULL,
+  status SMALLINT NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT NOW(),
+  CONSTRAINT fk_notification_object_2
+    FOREIGN KEY (notification_object_id)
+    REFERENCES notification_objects (id)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT fk_notification_actor_id
+    FOREIGN KEY (actor_id)
+    REFERENCES "users" (id)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION
 );
 
 CREATE TABLE user_followed_assets (
@@ -47,3 +83,18 @@ CREATE TABLE user_followed_assets (
 
 CREATE INDEX ON "assets" ("slug");
 CREATE INDEX ON "assets" ("cmc_id");
+
+-- Add indexes for Notification
+CREATE INDEX IF NOT EXISTS fk_notification_object_idx
+ON notifications (notification_object_id);
+
+CREATE INDEX IF NOT EXISTS fk_notification_notifier_id_idx
+ON notifications (notifier_id);
+
+
+-- Add indexes for Notification Change
+CREATE INDEX IF NOT EXISTS fk_notification_object_idx_2
+ON notification_changes (notification_object_id);
+
+CREATE INDEX IF NOT EXISTS fk_notification_actor_id_idx
+ON notification_changes (actor_id);

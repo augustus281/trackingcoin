@@ -1,6 +1,8 @@
 package consumer
 
 import (
+	"strings"
+
 	"github.com/augustus281/trackingcoin/global"
 	"github.com/gin-gonic/gin"
 	"github.com/segmentio/kafka-go"
@@ -11,12 +13,13 @@ type Consumer struct {
 	reader *kafka.Reader
 }
 
-func NewConsumer(brokers []string, groupID string, topics []string) *Consumer {
+func NewConsumer(kafkaURL string, groupID string, topic string) *Consumer {
+	brokers := strings.Split(kafkaURL, ",")
 	consumer := &Consumer{
 		reader: kafka.NewReader(kafka.ReaderConfig{
-			Brokers:     brokers,
-			GroupID:     groupID,
-			GroupTopics: topics,
+			Brokers: brokers,
+			GroupID: groupID,
+			Topic:   topic,
 		}),
 	}
 	return consumer
