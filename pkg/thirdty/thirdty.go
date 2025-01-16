@@ -34,6 +34,6 @@ func GetListingLatest(param dto.ListingParam) (*dto.ListingResponse, error) {
 		global.Logger.Error("failed to unmarshal", zap.Error(err))
 		return nil, err
 	}
-	
+
 	return response, nil
 }
