@@ -8,16 +8,16 @@ WORKDIR /app
 COPY go.mod go.sum ./
 
 # Download dependencies (to cache them in the Docker image)
-RUN go mod tidy
+RUN go mod download
 
 # Copy the rest of the application code
 COPY . .
 
 # Build the Go application
-RUN go build -o main ./cmd
+RUN go build -o ./cmd/main ./cmd
 
 # Expose port (assuming your app runs on port 8080)
-EXPOSE 5000
+EXPOSE 80
 
 # Command to run the app
-CMD ["./main"]
+CMD ["./cmd/main"]

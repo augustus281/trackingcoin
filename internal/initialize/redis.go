@@ -2,7 +2,6 @@ package initialize
 
 import (
 	"context"
-	"fmt"
 
 	"github.com/redis/go-redis/v9"
 	"go.uber.org/zap"
@@ -17,7 +16,8 @@ var (
 func InitRedis() {
 	r := global.Config.Redis
 	rdb := redis.NewClient(&redis.Options{
-		Addr:     fmt.Sprintf("%s:%v", r.Host, r.Port),
+		//Addr:     fmt.Sprintf("%s:%v", r.Host, r.Port),
+		Addr:     "localhost:6379",
 		Password: r.Password,
 		DB:       r.Database,
 		PoolSize: 10,

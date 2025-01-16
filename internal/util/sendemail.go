@@ -22,7 +22,7 @@ func SendNotificationEmail(notification dto.Notification) error {
 	return dialer.DialAndSend(message)
 }
 
-func SendMailHTML(to string, listing dto.ListingResponse) error {
+func SendMailHTML(to string, listing dto.EmailListing) error {
 	tmpl, err := template.New("email").Parse(ListingTemplate)
 	if err != nil {
 		global.Logger.Error("failed to parse template", zap.Error(err))
